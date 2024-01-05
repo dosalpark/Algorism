@@ -6,9 +6,11 @@
 //        //num1이 2이고 num2가 3이므로 2 - 3 = -1을 return합니다.
 //        //입출력 예 #2
 //        //num1이 100이고 num2가 2이므로 100 - 2 = 98을 return합니다.
+
 //    public int solution(int num1; int num2) {
 //            int answer = 0;
-//
+//            if (-50000<= num1 || num1 <= 50000 && -50000<= num1 || num1 <= 50000) {
 //            answer = num1 - num2;
+//            }
 //            return answer;
 //    }
