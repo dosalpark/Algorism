@@ -2,7 +2,7 @@ import java.util.*;
 class Solution {
     public int solution(String[] want, int[] number, String[] discount) {
         int answer = 0;
-        List<String> wishList = new LinkedList<>();
+        List<String> wishList = new ArrayList<>();
         for(int i = 0; i < number.length; i++){
             for(int j = 0; j < number[i]; j++){
                 wishList.add(want[i]);
@@ -12,7 +12,9 @@ class Solution {
 
         for (int i = 0; i <= discount.length -10; i++){
 
-            List<String> day10Discount = new ArrayList<>(List.of(Arrays.copyOfRange(discount,i,i+10)));
+            List<String> day10Discount = 
+                new ArrayList<>(List.of(Arrays.copyOfRange(discount,i,i+10)));
+            
             for (String s : wishList) {
                 day10Discount.remove(s);
             }
