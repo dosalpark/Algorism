@@ -1,14 +1,14 @@
 # [level 1] [카카오 인턴] 키패드 누르기 - 67256 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/67256#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/67256) 
 
 ### 성능 요약
 
-메모리: 75.7 MB, 시간: 3.38 ms
+메모리: 79.1 MB, 시간: 10.79 ms
 
 ### 구분
 
-코딩테스트 연습 > 2020 카카오 인턴십
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 16일 22:58:07
+2024년 07월 11일 18:41:19
 
 ### 문제 설명
 
