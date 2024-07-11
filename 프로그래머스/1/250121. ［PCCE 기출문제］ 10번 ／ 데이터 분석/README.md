@@ -1,14 +1,14 @@
 # [level 1] [PCCE 기출문제] 10번 / 데이터 분석 - 250121 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/250121) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/250121#qna) 
 
 ### 성능 요약
 
-메모리: 84.4 MB, 시간: 2.83 ms
+메모리: 75.2 MB, 시간: 2.82 ms
 
 ### 구분
 
-코딩테스트 연습 > PCCE 기출문제
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 29일 11:07:41
+2024년 07월 11일 23:45:01
 
 ### 문제 설명
 

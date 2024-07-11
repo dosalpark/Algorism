@@ -1,26 +1,26 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 class Solution {
     public int[][] solution(int[][] data, String ext, int val_ext, String sort_by) {
-        Map<String, Integer> sortMap = new HashMap<>();
-        sortMap.put("code", 0);
-        sortMap.put("date", 1);
-        sortMap.put("maximum", 2);
-        sortMap.put("remain", 3);
-
-        Arrays.sort(data, (o1, o2) -> {
-            return o1[sortMap.get(sort_by)]-o2[sortMap.get(sort_by)];
-        });
-
-        List<int[]> answer = new ArrayList<>();
-        for (int[] singleData : data) {
-            if (singleData[sortMap.get(ext)] < val_ext) {
-                answer.add(singleData);
+        List<int[]> list = new ArrayList<>();
+        Map<String,Integer> map = new HashMap<>();
+        map.put("code",0);
+        map.put("date",1);
+        map.put("maximum",2);
+        map.put("remain",3);
+        
+        int extType = map.get(ext);
+        int sortType = map.get(sort_by);
+        
+        for(int[] oneData : data){
+            if(oneData[extType] < val_ext){
+                list.add(oneData);
             }
         }
-        return answer.toArray(int[][]::new);
+        
+        int[][] answer = new int[list.size()][map.size()];
+        list.sort(Comparator.comparingInt(i -> i[sortType]));
+        list.toArray(answer);
+
+        return answer;
     }
 }
