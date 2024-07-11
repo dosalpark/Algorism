@@ -1,37 +1,51 @@
-import java.util.HashMap;
-import java.util.Map;
+//선물준거를 확인해서 서로 같으면 지수비교임
+
+import java.util.*;
+
 class Solution {
     public int solution(String[] friends, String[] gifts) {
         int answer = 0;
-        int[] nextMonthCount = new int[friends.length];
-
-        Map<String, Integer> toFromCountMap = new HashMap<>();
-        Map<String, Integer> giftRank = new HashMap<>();
-        for (String gift : gifts) {
-            String to = gift.split(" ")[0];
-            String from = gift.split(" ")[1];
-            toFromCountMap.put(gift, toFromCountMap.getOrDefault(gift,0) +1);
-            giftRank.put(to, giftRank.getOrDefault(to, 0) + 1);
-            giftRank.put(from, giftRank.getOrDefault(from, 0) - 1);
+        Map<String,Integer> gitfScore = new HashMap<>();
+        Map<String,Integer> tradeScore = new HashMap<>();
+        Map<String,Integer> count = new HashMap<>();
+        
+        for(String gift : gifts){
+            String sender = gift.split(" ")[0];
+            String recipient = gift.split(" ")[1];
+            
+            gitfScore.put(gift,gitfScore.getOrDefault(gift, 0) +1);
+            
+            tradeScore.put(sender,tradeScore.getOrDefault(sender, 0) +1);
+            tradeScore.put(recipient,tradeScore.getOrDefault(recipient, 0) -1);
         }
-
-        for(int i = 0; i < friends.length; i++) {
-            for (int j = 0; j < friends.length; j++) {
-                if (friends[i].equals(friends[j])) {
-                    continue;
-                }
-                String toIFromJ = friends[i] + " " + friends[j];
-                String toJFromI = friends[j] + " " + friends[i];
-                if (toFromCountMap.getOrDefault(toIFromJ,0) > toFromCountMap.getOrDefault(toJFromI,0)) {
-                    nextMonthCount[i]++;
-                } else if ((toFromCountMap.getOrDefault(toIFromJ,0) == toFromCountMap.getOrDefault(toJFromI,0))) {
-                    if (giftRank.getOrDefault(friends[i],0) > giftRank.getOrDefault(friends[j],0)) {
-                        nextMonthCount[i]++;
+        
+        for(int i = 0; i < friends.length; i++){
+            for(int j = i+1; j < friends.length; j++){
+                int value = 0;
+                String iSendj = friends[i] + " " + friends[j];
+                String jSendi = friends[j] + " " + friends[i];
+                int iSendjCount = gitfScore.getOrDefault(iSendj, 0);
+                int jSendiCount = gitfScore.getOrDefault(jSendi, 0);
+                
+                if(iSendjCount>jSendiCount){
+                    value = count.getOrDefault(friends[i], 0) +1;
+                    count.put(friends[i], value);
+                } else if(iSendjCount<jSendiCount){
+                    value = count.getOrDefault(friends[j], 0) +1;
+                    count.put(friends[j], value);
+                } else {
+                    int iTrade = tradeScore.getOrDefault(friends[i], 0);
+                    int jTrade = tradeScore.getOrDefault(friends[j], 0);
+                    
+                    if(iTrade > jTrade){
+                        value = count.getOrDefault(friends[i], 0) +1;
+                        count.put(friends[i], value);
+                    } else if (jTrade > iTrade){
+                        value = count.getOrDefault(friends[j], 0) +1;
+                        count.put(friends[j], value);
                     }
                 }
-            }
-            if(answer < nextMonthCount[i]){
-                answer = nextMonthCount[i];
+                answer = Math.max(answer, value);
             }
         }
         return answer;
