@@ -1,14 +1,14 @@
 # [level 1] 신고 결과 받기 - 92334 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/92334#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/92334) 
 
 ### 성능 요약
 
-메모리: 78 MB, 시간: 0.16 ms
+메모리: 72.5 MB, 시간: 0.15 ms
 
 ### 구분
 
-코딩테스트 연습 > 2022 KAKAO BLIND RECRUITMENT
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 09일 02:35:29
+2024년 07월 12일 15:55:08
 
 ### 문제 설명
 
