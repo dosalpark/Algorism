@@ -2,15 +2,18 @@ import java.util.*;
 class Solution {
     public int solution(int[] nums) {
         int answer = 0;
-        int max = nums.length/2;
-        Map<Integer,Integer> map = new HashMap<>();
-        for (int num : nums){
-            map.put(num, map.getOrDefault(num, 0) +1);
+        
+        Set<Integer> set = new HashSet<>();
+        for(int num : nums){
+            set.add(num);
         }
-        if(map.size() > max){
-            return max;
-        } else {
-            return map.size();
+        
+        if(set.size() > nums.length/2){
+            answer = nums.length/2;
+        } else{
+            answer = set.size();
         }
+        
+        return answer;
     }
 }
