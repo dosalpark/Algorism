@@ -1,30 +1,20 @@
 class Solution {
     public String solution(String new_id) {
-        String answer = "";
-        
-        answer = new_id.toLowerCase(); //"...!@bat#*..y.abcdefghijklm"
-        answer = answer.replaceAll("[^0-9a-z-_.]", ""); //"...bat..y.abcdefghijklm"
-        answer = answer.replaceAll("\\.+","."); //".bat.y.abcdefghijklm"
-        answer = answer.replaceAll("^\\.", ""); //"bat.y.abcdefghijklm"
-        answer = answer.replaceAll("\\.$", ""); //"bat.y.abcdefghijklm"
-        
-        if(answer.equals("")){
-            answer = "a";
-        }
-        
-        if(answer.length() > 15){
-            answer = answer.substring(0,15);
-            answer = answer.replaceAll("\\.$", "");
-        }
+        String answer = new_id.toLowerCase();
+        answer = answer.replaceAll("[^a-z0-9-_.]","");
+        answer = answer.replaceAll("[.]{2,}","."); 
+        answer = answer.replaceAll("^[.]|[.]$","");
+        answer = answer.isEmpty() ? "a" : answer;
+        answer = answer.length() >= 16 ? answer.substring(0,15) : answer;
+        answer = answer.replaceAll("[.]$","");
         
         if(answer.length() < 3){
-            char lastAnswerChar = answer.charAt(answer.length() -1);
-            while (answer.length() < 3) {
-                answer += lastAnswerChar;
+            char last = answer.charAt(answer.length()-1);
+            while(answer.length() < 3){
+                answer += last;
             }
         }
         
-        System.out.println(answer);
         return answer;
     }
 }
