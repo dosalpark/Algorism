@@ -1,31 +1,34 @@
 import java.util.*;
 class Solution {
     public String[] solution(String[] record) {
-        String enter = "님이 들어왔습니다.";
-        String exit = "님이 나갔습니다.";
-        int count = 0;
-        Map<String, String> uidMap = new HashMap<>();
-
-        for(String r : record){
-            String action = r.split(" ")[0];
-            if(action.equals("Leave")) continue;
-            String uid = r.split(" ")[1];
-            String name = r.split(" ")[2];
-            uidMap.put(uid,name);
-        }
-
+        Map<String, String> map = new HashMap<>();
         List<String> list = new ArrayList<>();
+        String input = "님이 들어왔습니다.";
+        String output = "님이 나갔습니다.";
+        
         for(String r : record){
-            String action = r.split(" ")[0];
-            String uid = r.split(" ")[1];
-            if(action.equals("Change")) {
-                continue;
-            } else if(action.equals("Enter")){
-                list.add(uidMap.get(uid)+enter);
-            } else {
-                list.add(uidMap.get(uid)+exit);
+            String[] arr = r.split(" ");
+            if(!arr[0].equals("Leave")){
+                map.put(arr[1],arr[2]);
             }
         }
-        return list.toArray(String[]::new);
+        
+        for(String re : record){
+            String inout = re.split(" ")[0];
+            String uid = re.split(" ")[1];
+            if(inout.equals("Enter")){
+                list.add(map.get(uid) + input);
+            } else if (inout.equals("Leave")){
+                list.add(map.get(uid) + output);
+            }
+        }
+        String[] answer = new String[list.size()];
+        for(int i = 0; i < list.size(); i++){
+            answer[i] = list.get(i);
+        }
+//         
+//         
+        // return answer;
+        return list.stream().map(i -> i).toArray(String[]::new);
     }
 }
