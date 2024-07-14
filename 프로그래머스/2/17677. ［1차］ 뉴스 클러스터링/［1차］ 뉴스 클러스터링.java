@@ -1,49 +1,42 @@
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.*;
 class Solution {
-
-    public List<String> normalValue(String str, String pt) {
-        List<String> list = new ArrayList<>();
-        for (int i = 1; i < str.length(); i++) {
-            String checkStr = "" + str.charAt(i - 1) + str.charAt(i);
-            if (checkStr.matches(pt)) {
-                list.add(checkStr);
-            }
-        }
-        return list;
-    }
-
     public int solution(String str1, String str2) {
         int answer = 0;
-        String pt = "^[a-z][a-z]$";
+        List<String> list1 = new ArrayList<>();
+        List<String> list2 = new ArrayList<>();
         str1 = str1.toLowerCase();
         str2 = str2.toLowerCase();
-
-        if(str1.equals(str2)){
-            return 65536;
-        }
-
-        List<String> checkedStr1 = normalValue(str1, pt);
-        List<String> checkedStr2 = normalValue(str2, pt);
-        int equalCount = 0;
-        int totalCount = 0;
-
-        for (String str : checkedStr1) {
-            if (checkedStr2.contains(str)) {
-                equalCount++;
-                checkedStr2.remove(str);
+        
+        for(int i = 1; i < str1.length(); i++){
+            String substr = str1.substring(i-1,i+1);
+            if(substr.matches("[a-z][a-z]")){
+                list1.add(substr);
             }
-            totalCount++;
         }
-        for(String str : checkedStr2){
-            totalCount++;
+        for(int i = 1; i < str2.length(); i++){
+            String substr = str2.substring(i-1,i+1);
+            if(substr.matches("[a-z][a-z]")){
+                list2.add(substr);
+            }
         }
-
-
-
-        double du = (double) equalCount / totalCount;
-        answer = (int) (du * 65536);
-        return answer;
+        
+        
+        int total = list1.size() + list2.size();
+        int list1size = list1.size();
+        int list2size = list2.size();
+        
+        
+        for(String str : list1){
+            list2.remove(str);
+        }
+        
+        int 교 = list2size - list2.size(); //중복값
+        int 합 = total - 교;
+        
+        
+        return answer = 합 == 0 ? 65536 : 65536*교/합;
     }
 }
+
+//ha an nd ds sh ha ak ke  count 16, 합 8, 교 8 
+//sh ha ak ke ha an nd ds
