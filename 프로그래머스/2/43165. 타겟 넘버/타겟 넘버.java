@@ -1,28 +1,29 @@
+import java.util.*;
 class Solution {
     int answer;
-    int target;
     int[] numbers;
-    
-    public void dfs(int index, int sum){
-        //탈출
-        if(index >= numbers.length){
-            if(target==sum ){
+    int target;
+
+    public int solution(int[] numbers, int target) {
+        answer = 0;
+        numbers = numbers;
+        target = target;
+
+        go(0,0, target, numbers);
+
+        return answer;
+    }
+
+    private void go(int depth, int sum, int target, int[] numbers){
+        if(depth == numbers.length){
+            if(sum == target){
                 answer++;
             }
             return;
         }
-        
-        //동작
-        dfs(index+1,sum+numbers[index]);
-        dfs(index+1,sum-numbers[index]);
-    }
+        int number = numbers[depth];
 
-    public int solution(int[] numbers, int target) {
-        answer = 0;
-        this.numbers = numbers;
-        this.target = target;
-        
-        dfs(0,0);
-        return answer;
+        go(depth+1,sum + number, target, numbers);
+        go(depth+1,sum - number, target, numbers);
     }
 }
