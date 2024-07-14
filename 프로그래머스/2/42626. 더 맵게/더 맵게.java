@@ -2,28 +2,26 @@ import java.util.*;
 class Solution {
     public int solution(int[] scoville, int K) {
         int answer = 0;
-        PriorityQueue<Integer> que = new PriorityQueue<>();
-        for (int i = 0; i < scoville.length; i++){
-            que.add(scoville[i]);
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        List<Integer> list = new ArrayList<>();
+        for(int i : scoville){
+            pq.offer(i);
         }
         
-        while(!que.isEmpty()){
-            int cur = que.poll();
-            
-            if(cur >= K ){
-                return answer;
-            } else {
-                if(!que.isEmpty()){
-                    int second = que.poll();
-                    int sum = cur + second *2;
-                
-                    que.add(sum);
-                    answer++;    
-                } else {
-                    answer = -1;
-                }
-                
+        while(!pq.isEmpty()){
+            int cur = pq.poll();
+            if(cur < K && !pq.isEmpty()){
+                answer++;
+                int next = pq.poll();
+                int sum = cur + next*2;
+                    pq.offer(sum);
             }
+            if(cur >= K){
+                list.add(cur);
+            }
+        }
+        if(list.isEmpty()){
+            answer = -1;
         }
         
         return answer;
