@@ -1,14 +1,14 @@
 # [level 3] 단어 변환 - 43163 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43163) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/43163#qna) 
 
 ### 성능 요약
 
-메모리: 72.4 MB, 시간: 0.19 ms
+메모리: 74.3 MB, 시간: 0.32 ms
 
 ### 구분
 
-코딩테스트 연습 > 깊이／너비 우선 탐색（DFS／BFS）
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 18일 14:30:38
+2024년 07월 15일 14:22:38
 
 ### 문제 설명
 

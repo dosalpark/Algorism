@@ -1,42 +1,51 @@
 import java.util.*;
 class Solution {
 
-    public int bfs(String begin, String target, String[] words) {
-        Queue<String[]> que = new LinkedList<>();
-        int length = begin.length();
-        que.add(new String[]{begin,""});
+    public int solution(String begin, String target, String[] words) {
+        int answer = 0;
+        int check = 0;
+        int[] visit = new int[words.length];
+        Queue<Integer> que = new LinkedList<>();
 
-        while(!que.isEmpty()){
-            String[] cur = que.poll();
-
-            if(cur[0].equals(target)){
-                return cur[1].length();
-            }
-
-
-            for(int i = 0; i < words.length; i++){
-                if(words[i].equals("ffffff")){
-                    continue;
-                }
-                int stack = 0;
-                for(int j = 0; j < length; j++){
-                    if(cur[0].charAt(j) != words[i].charAt(j)){
-                        stack++;
-                    }
-                }
-                if(stack == 1){
-                    que.add(new String[]{words[i],cur[1] + "0"});
-                    words[i] = "ffffff";
-                }
+        for (int i = 0; i < words.length; i++) {
+            if (flag(i, words, begin)) {
+                que.add(i);
+                visit[i] = 1;
             }
         }
 
 
-        return 0;
-    }
-    public int solution(String begin, String target, String[] words) {
-        int answer = 0;
-        answer = bfs(begin, target, words);
+        while (!que.isEmpty()) {
+            int wordIdx = que.poll();
+            String word = words[wordIdx];
+
+            if (word.equals(target)) {
+                return visit[wordIdx];
+            }
+
+            for (int i = 0; i < words.length; i++) {
+                if (visit[i] == 0 && flag(i,words,word)) {
+                    que.add(i);
+                    visit[i] = visit[wordIdx] + 1;
+                }
+
+            }
+        }
+
         return answer;
     }
+
+    private boolean flag(int i, String[] words, String begin) {
+        int count = 0;
+        for (int j = 0; j < words[i].length(); j++) {
+            if (begin.charAt(j) != words[i].charAt(j)) {
+                count++;
+            }
+            if (count > 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+
 }
