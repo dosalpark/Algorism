@@ -1,6 +1,6 @@
 # [level 3] 있었는데요 없었습니다 - 59043 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59043#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59043) 
 
 ### 성능 요약
 
@@ -8,7 +8,7 @@
 
 ### 구분
 
-코딩테스트 연습 > JOIN
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2024년 03월 21일 10:31:49
+2024년 07월 22일 18:16:11
 
 ### 문제 설명
 
