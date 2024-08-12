@@ -1,14 +1,14 @@
 # [level 2] 기능개발 - 42586 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42586#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42586) 
 
 ### 성능 요약
 
-메모리: 73.1 MB, 시간: 2.76 ms
+메모리: 73.1 MB, 시간: 0.05 ms
 
 ### 구분
 
-코딩테스트 연습 > 스택／큐
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 03월 24일 11:43:43
+2024년 08월 12일 15:43:41
 
 ### 문제 설명
 
