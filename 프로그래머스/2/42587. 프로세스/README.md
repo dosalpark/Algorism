@@ -1,14 +1,14 @@
 # [level 2] 프로세스 - 42587 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42587#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42587) 
 
 ### 성능 요약
 
-메모리: 70.9 MB, 시간: 0.71 ms
+메모리: 78 MB, 시간: 2.29 ms
 
 ### 구분
 
-코딩테스트 연습 > 스택／큐
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 31일 01:49:26
+2024년 08월 12일 16:56:11
 
 ### 문제 설명
 
