@@ -1,24 +1,30 @@
 class Solution {
     public int[] solution(int brown, int yellow) {
-        int[] answer = new int[2];
+        int[] answer;
         int sum = brown + yellow;
-        
-        //최소크기 3*3
-        for(int i = 3; i < sum; i++){
-            int j = sum / i;
+        int x = 3;
+        while(true){
+            int y = sum / x;
+            if(sum == y * x && brown == (x+y)*2 -4){
+                answer = new int[]{y, x};
+                break;
+            }
+            x++;
             
-            if(j >= 3 && sum % i == 0){
-                int x = Math.max(i,j);
-                int y = Math.min(i,j);
-                int yellowCheck = (x-2) * (y-2);
-                
-                if(yellow==yellowCheck){
-                    answer[0] = x;
-                    answer[1] = y;
-                    return answer;
-                }
-            }   
         }
         return answer;
     }
 }
+// xxxxxxxx
+// xoooooox
+// xoooooox
+// xoooooox
+// xoooooox
+// xxxxxxxx
+//8 + 6 14*2 28-4 = 24
+//4 + 3 7*2 14-4 = 24
+//
+
+// xxxxxxxxxxxxxxxx
+// xoooooooooooooox
+// xxxxxxxxxxxxxxxx
