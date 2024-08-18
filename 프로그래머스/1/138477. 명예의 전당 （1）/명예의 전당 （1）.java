@@ -1,18 +1,22 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 class Solution {
     public int[] solution(int k, int[] score) {
         int[] answer = new int[score.length];
-        List<Integer> bucket = new ArrayList<>();
-
-        for (int i = 0; i < score.length; i++){
-            bucket.add(score[i]);
-            Collections.sort(bucket);
-            if(bucket.size() > k)
-                bucket.remove(0);
-            answer[i] = bucket.get(0);
+        PriorityQueue<Integer> pq = new PriorityQueue<>();
+        int min = 2001;
+        
+        for(int i = 0; i < score.length; i++){
+            if(i < k){
+                pq.add(score[i]);
+            } else {
+                pq.add(score[i]);
+                pq.poll();
+            }
+            int cur = pq.poll();
+            answer[i] = cur;
+            pq.add(cur);
         }
+        
         return answer;
     }
 }
