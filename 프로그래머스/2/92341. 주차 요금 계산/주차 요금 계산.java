@@ -1,98 +1,72 @@
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import java.util.*;
 class Solution {
-    public int checkAmount(int sumTime, int[] fees){
-        int defaultTime = fees[0];
-        int defaultPrice = fees[1];
-        int unitTime = fees[2];
-        int unitTimeCost = fees[3];
-
-
-        if(sumTime <= defaultTime) return defaultPrice;
-        else {
-            int overTime = sumTime - defaultTime;
-            if(overTime%unitTime != 0) overTime += unitTime;
-
-
-            return defaultPrice + (overTime/unitTime) * unitTimeCost;
-        }
-    }
-
     public int[] solution(int[] fees, String[] records) {
-        List<String> indexList = new ArrayList<>();
-        Map<String, Info> numberMap = new HashMap<>();
-        int maxTime = 23 * 60 + 59;
-
-        for(int i = 0; i < records.length; i++){
-            String[] record = records[i].split(" ");
-            String time = record[0];
-            int convertTime = Integer.parseInt(time.split(":")[0]) * 60 + Integer.parseInt(time.split(":")[1]);
-            String number = record[1];
-            String inout = record[2];
-
-            if(inout.equals("IN")){
-                if(!indexList.contains(number)){
-                    indexList.add(number);
-                    Info newInfo = new Info(number);
-                    numberMap.put(number,newInfo);
-                }
-                Info oldInfo = numberMap.get(number);
-                oldInfo.updateIn(convertTime);
-                numberMap.put(number,oldInfo);
+        int[] answer = {};
+        List<String> numbers = new ArrayList<>();
+        Map<String, String> inMap = new HashMap<>();
+        Map<String, Integer> sumMap = new HashMap<>();
+        
+        for(String record : records){
+            String number = record.split(" ")[1];
+            String time = record.split(" ")[0];
+            String what = record.split(" ")[2];
+            
+            if(!numbers.contains(number)){
+                numbers.add(number);
+            }
+            
+            if(what.equals("IN")){
+                inMap.put(number,time);
             } else {
-                Info outInfo = numberMap.get(number);
-                outInfo.updateOut(convertTime);
-                numberMap.put(number,outInfo);
+                String beforeTime = inMap.get(number);
+                int minusTime = timeCalculator(beforeTime, time);
+                
+                sumMap.put(number, sumMap.getOrDefault(number,0) + minusTime);
+                inMap.put(number,"0");
             }
         }
-
-        Collections.sort(indexList);
-        int[] answer = new int[indexList.size()];
-
-        for(int i = 0; i < indexList.size(); i++){
-            Info info = numberMap.get(indexList.get(i));
-            if(info.getIsIn()){
-                info.updateOut(maxTime);
+        Collections.sort(numbers);
+        answer = new int[numbers.size()];
+        
+        for(int i = 0; i < numbers.size(); i++){
+            //출차 안된 차량 확인
+            String cur = inMap.get(numbers.get(i));
+            if(!cur.equals("0")){
+                int minusTime = timeCalculator(cur, "23:59");
+                sumMap.put(numbers.get(i), sumMap.getOrDefault(numbers.get(i),0) + minusTime);
+                inMap.put(numbers.get(i),"0");
             }
-            answer[i] = checkAmount(info.getSumTime(), fees);
+            int parkingTime = sumMap.get(numbers.get(i));
+            System.out.println("parkingTime: " + parkingTime + " / number: " + numbers.get(i));
+            answer[i] = priceCalculator(fees, parkingTime);
+            
         }
-
         return answer;
     }
-}
-
-class Info{
-    String number;
-    boolean isIn;
-    int inTime;
-    int sumTime;
-
-    Info(String number){
-        this.number = number;
-        this.isIn = false;
-        this.inTime = 0;
-        this.sumTime = 0;
+    
+    private int priceCalculator(int[] fees, int parkingTime){
+        int basicTime = fees[0];
+        int basicPrice = fees[1];
+        int overTime = fees[2];
+        int overTimePrice = fees[3];
+        
+        if(basicTime >= parkingTime){
+            return basicPrice;
+        }
+        
+        int roundParkingTime = (parkingTime - basicTime) % overTime;
+        if(roundParkingTime != 0){
+            parkingTime += overTime;
+        }
+        
+        return basicPrice + ((parkingTime - basicTime) / overTime) * overTimePrice;
     }
-
-    boolean getIsIn(){
-        return this.isIn;
-    }
-
-    int getSumTime(){
-        return this.sumTime;
-    }
-
-    void updateIn(int inTime){
-        this.isIn = true;
-        this.inTime = inTime;
-    }
-    void updateOut(int outTime){
-        this.sumTime = sumTime + (outTime - this.inTime);
-        this.isIn = false;
-        this.inTime = 0;
+    
+    private int timeCalculator(String before, String now){
+        int nowTimeScore = (Integer.parseInt(now.split(":")[0]) * 60) + 
+            Integer.parseInt(now.split(":")[1]);
+        int beforeTimeScore = (Integer.parseInt(before.split(":")[0]) * 60) + 
+            Integer.parseInt(before.split(":")[1]);
+        return nowTimeScore - beforeTimeScore;
     }
 }
