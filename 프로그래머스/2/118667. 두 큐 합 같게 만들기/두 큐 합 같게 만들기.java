@@ -2,46 +2,41 @@ import java.util.*;
 class Solution {
     public int solution(int[] queue1, int[] queue2) {
         int answer = 0;
-        int maxCount = queue1.length * 3;
-        long que1Sum = 0L;
-        long que2Sum = 0L;
-        Queue<Long> que1 = new LinkedList<>();
-        Queue<Long> que2 = new LinkedList<>();
+        int count = 0;
+        Queue<Integer> q1 = new LinkedList<>();
+        Queue<Integer> q2 = new LinkedList<>();
+        long sum1 = 0;
+        long sum2 = 0;
         
         for(int i = 0; i < queue1.length; i++){
-            que1Sum += queue1[i];
-            que1.offer(queue1[i]+0L);
-            que2Sum += queue2[i];
-            que2.offer(queue2[i]+0L);
+            q1.add(queue1[i]);
+            sum1 += queue1[i];
+            q2.add(queue2[i]);
+            sum2 += queue2[i];
+            count += 2;
         }
         
-        
-        long total = que1Sum + que2Sum;
-        long half = total/2;
-        
-        if(total%2 == 1){
-            return -1;
-        }
-        
-        while(que1Sum != half){
-            if(que1Sum > que2Sum){
-                long cur = que1.poll();
-                if(cur > half) return -1;
-                que1Sum -= cur;
-                que2Sum += cur;
-                que2.offer(cur);
-                
-            } else {
-                long cur = que2.poll();
-                if(cur > half) return -1;
-                que2Sum -= cur;
-                que1Sum += cur;
-                que1.offer(cur);
+        while(true){
+            if(answer > count*3){
+                answer = -1;
+                break;
             }
             
-            answer++;
-            maxCount--;
-            if(maxCount < 0) return -1;
+            if(sum1 < sum2){
+                int cur = q2.poll();
+                q1.add(cur);
+                sum2 -= cur;
+                sum1 += cur;
+                answer++;
+            } else if(sum1 > sum2){
+                int cur = q1.poll();
+                q2.add(cur);
+                sum1 -= cur;
+                sum2 += cur;
+                answer++;
+            } else {
+                break;
+            }
         }
         
         return answer;
