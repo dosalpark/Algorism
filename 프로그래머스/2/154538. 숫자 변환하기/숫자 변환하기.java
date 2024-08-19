@@ -1,43 +1,37 @@
 import java.util.*;
 class Solution {
     public int solution(int x, int y, int n) {
-        if(x > y){
-            return -1;
-        }
-        return bfs(x,y,n);
-    }
-
-    public int bfs(int x, int y, int n){
-        Queue<Integer> xQue = new LinkedList<>();
-        Set<Integer> visited = new HashSet<>();
-        int cnt = 0;
-        xQue.offer(x);
-        visited.add(x);
-
-        while (!xQue.isEmpty()){
-            int size = xQue.size();
-            for(int i = 0; i < size; i++){
-                int transX = xQue.poll();
-                if(transX == y){
-                    return cnt;
-                }
-
-                if(transX+n <= y && !visited.contains(transX+n)){
-                    xQue.offer(transX+n);
-                    visited.add(transX+n);
-                }
-                if(transX*2 <= y && !visited.contains(transX*2)){
-                    xQue.offer(transX*2);
-                    visited.add(transX*2);
-                }
-                if(transX*3 <= y && !visited.contains(transX*3)){
-                    xQue.offer(transX*3);
-                    visited.add(transX*3);
-                }
+        int answer = 0;
+        Queue<String> que = new LinkedList<>();
+        que.add(y+" "+0);
+        
+        while(true){
+            if(que.isEmpty()){
+                answer = -1;
+                break;
+            }    
+            
+            String cur = que.poll();
+            int ny = Integer.parseInt(cur.split(" ")[0]);
+            int count = Integer.parseInt(cur.split(" ")[1]);
+            
+            if(ny == x){
+                answer = count;
+                break;
             }
-            cnt++;
+            int nCount = count+1;
+            if(ny-n >= x){
+                que.add(ny-n+" "+nCount);
+            }
+            if(ny%2 == 0 && ny/2 >= x){
+                que.add(ny/2+" "+nCount);
+            }
+            if(ny%3 == 0 && ny/3 >= x){
+                que.add(ny/3+" "+nCount);
+            }
+
         }
         
-        return -1;
+        return answer;
     }
 }
