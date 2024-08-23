@@ -2,46 +2,35 @@ import java.util.*;
 class Solution {
     public int solution(String[][] book_time) {
         int answer = 0;
-        int[][] sortBooking = new int[book_time.length][2];
-        List<String> bookingList = new ArrayList<>();
-        List<Integer> checkList = new ArrayList<>();
+        Arrays.sort(book_time, Comparator.comparing(o -> o[0]));
+        PriorityQueue<Integer> room = new PriorityQueue<>();
 
-        for (int i = 0; i < book_time.length; i++) {
-            String[] reservation = book_time[i];
-            String startReserv = reservation[0];
-            String endReserv = reservation[1];
-            int startTime = (Integer.parseInt(startReserv.split(":")[0]) * 60) + Integer.parseInt(
-                startReserv.split(":")[1]);
-            int endTime = (Integer.parseInt(endReserv.split(":")[0]) * 60) + Integer.parseInt(
-                endReserv.split(":")[1]);
-            sortBooking[i][0] = startTime;
-            sortBooking[i][1] = endTime;
-        }
+        for (String[] strings : book_time) {
+            String inHour = strings[0].split(":")[0];
+            String inMin = strings[0].split(":")[1];
+            String outHour = strings[1].split(":")[0];
+            String outMin = strings[1].split(":")[1];
+            int inTime = Integer.parseInt(inHour) * 60 + Integer.parseInt(inMin);
+            int outTime = Integer.parseInt(outHour) * 60 + Integer.parseInt(outMin);
 
-        Arrays.sort(sortBooking, (o1, o2) -> {
-            return o1[0] - o2[0];
-        });
-
-        for (int[] ints : sortBooking) {
-            if (checkList.isEmpty()) {
-                checkList.add(ints[1] + 10); //끝나는시간
-                answer++;
+            if(room.isEmpty()){
+                room.add(outTime);
+                if(answer == 0){
+                    answer++;
+                }
                 continue;
             }
-            boolean flag = false;
-            for (Integer i : checkList) {
-                if (ints[0] >= i) {
-                    checkList.remove(i);
-                    checkList.add(ints[1]+10);
-                    flag = true;
-                    break;
-                }
-            }
-            if (!flag) {
+
+            if(room.peek() +10 <= inTime){
+                room.poll();
+                room.add(outTime);
+            } else {
+                room.add(outTime);
                 answer++;
-                checkList.add(ints[1]+10);
             }
         }
+
+
         return answer;
     }
 }
