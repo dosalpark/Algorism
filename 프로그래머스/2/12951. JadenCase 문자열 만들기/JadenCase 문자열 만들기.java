@@ -1,24 +1,46 @@
+import java.util.*;
 class Solution {
     public String solution(String s) {
-        StringBuilder sBuilder = new StringBuilder();
-        String[] sSplit = s.split(" ");
-        for (int i = 0; i < sSplit.length; i++) {
-            String addStr = sSplit[i].toLowerCase();
-            if (addStr.isEmpty()) {
+        StringBuilder answer = new StringBuilder();
 
-            } else if ('a' <= addStr.charAt(0) && addStr.charAt(0) <= 'z') {
-                sBuilder.append(addStr.substring(0,1).toUpperCase());
-                sBuilder.append(addStr.substring(1));
-            } else if ('0' <= addStr.charAt(0) && addStr.charAt(0) <= '9') {
-                sBuilder.append(addStr);
+        s = s.toLowerCase();
+        String[] sArr = s.split(" ");
+
+        int end = 0;
+
+        for(int i = s.length() -1; i >= 0; i--){
+            if(s.charAt(i) != ' ') {
+                break;
             }
-            if (i < sSplit.length - 1) {
-                sBuilder.append(" ");
+            end++;
+        }
+
+        for(int i = 0; i < sArr.length; i++){
+            if(sArr[i].length() == 0) {
+                answer.append(" ");
+                continue;
             }
+
+            if('0' <= sArr[i].charAt(0) && sArr[i].charAt(0) <= '9'){
+                answer.append(sArr[i]);
+            } else {
+                String first = String.valueOf(sArr[i].charAt(0)).toUpperCase();
+                answer.append(first);
+                if(sArr[i].length() > 1){
+                    String etc = sArr[i].substring(1);
+                    answer.append(etc);
+                }
+            }
+            if(i != sArr.length -1){
+                answer.append(" ");
+            }
+
         }
-        for(int i = s.length() - sBuilder.length(); i > 0; i--){
-            sBuilder.append(" ");
+
+        for(int i = 0; i < end; i++){
+            answer.append(" ");
         }
-        return sBuilder.toString();
+
+        return answer.toString();
     }
 }
