@@ -3,7 +3,7 @@ class Solution {
 
     public int[] solution(String s) {
         int[] answer = {};
-        Set<String> set = new LinkedHashSet<>();
+        Set<String> set = new HashSet<>();
         String[] arr = s.substring(2, s.length() - 2).split("\\},\\{");
         Arrays.sort(arr, new Comparator<String>() {
             @Override
@@ -11,18 +11,17 @@ class Solution {
                 return o1.length() - o2.length();
             }
         });
+        answer = new int[arr.length];
 
+
+        int i = 0;
         for (String string : arr) {
             for(String str : string.split(",")){
-                set.add(str);
+                if(set.add(str)){
+                    answer[i] = Integer.parseInt(str);
+                    i++;
+                };
             }
-        }
-
-        answer = new int[set.size()];
-        int i = 0;
-        for (String string : set) {
-            answer[i] = Integer.parseInt(string);
-            i++;
         }
 
         return answer;
