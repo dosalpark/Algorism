@@ -1,29 +1,29 @@
 import java.util.*;
+
 class Solution {
     public int[] solution(int n, String[] words) {
-        int[] answer = {0,0};
+        int[] answer = new int[]{0,0};
+        int index = -1;
+        char last = words[0].charAt(0);
+        boolean flag = false;
         Set<String> set = new HashSet<>();
-        char beforeLast = '0';
-        
-        for(int i = 1; i <= words.length; i++){
-            int size = set.size();
-            set.add(words[i-1]);
-            
-            if(size == set.size() || (beforeLast != words[i-1].charAt(0) && beforeLast != '0')){
-                int round = i / n +1;
-                int line = i % n;
 
-                if(i % n == 0 ){
-                    round -= 1;
-                    line = n;
-                }
-                answer[0] = line;
-                answer[1] = round;
+        for(String word : words){
+            index++;
+            int beforeSetSize = set.size();
+            set.add(word);
+
+            if(word.charAt(0) != last || beforeSetSize == set.size()){
+                flag = true;
                 break;
             }
-            beforeLast = words[i-1].charAt(words[i-1].length() -1);
+            last = word.charAt(word.length()-1);
         }
-        
+
+        if(flag){
+            answer[0] = (index % n) +1;
+            answer[1] = (index / n) +1;
+        }
 
         return answer;
     }
