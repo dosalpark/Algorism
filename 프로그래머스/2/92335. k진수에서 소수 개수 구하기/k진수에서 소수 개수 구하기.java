@@ -1,34 +1,27 @@
 class Solution {
     public int solution(int n, int k) {
         int answer = 0;
+        String kNumbers = Long.toString(n,k);
+        String[] kNumber = kNumbers.split("0");
         
-        String nStr = Integer.toString(n,k);
-        nStr = nStr.replaceAll("101 | 0", "");
-        nStr = nStr.replaceAll("0", " ");
-        nStr = nStr.replaceAll("\\s+", " ").trim();
-        
-        String[] numbers = nStr.split(" ");
-        
-        for(String numberStr : numbers){
-            long number = Long.parseLong(numberStr);
-            
-            if(number == 0 || number == 1) continue;
-            boolean flag = true;
-            
-            for(int i = 2; i <= (int)Math.sqrt(number); i++){
-                if(number%i == 0){
-                    flag = false;
-                    break;
-                }
+        for(String number : kNumber){
+            if(!number.isEmpty() && !number.equals("1") && check(number)){
+                answer++;
             }
-            if(flag) answer++;
         }
         
         return answer;
     }
+    
+    private boolean check(String number){
+        long num = Long.parseLong(number);
+
+        for(int i = 2; i <= Math.sqrt(num); i++){
+            if(num % i == 0){
+                return false;
+            }
+        }
+        return true;
+        
+    }
 }
-
-
-
-    
-    
