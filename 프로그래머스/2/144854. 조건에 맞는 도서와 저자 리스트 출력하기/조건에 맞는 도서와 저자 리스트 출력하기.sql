@@ -1,7 +1,6 @@
 -- 코드를 입력하세요
-SELECT a.book_id as BOOK_ID, 
-b.author_name as AUTHOR_NAME, 
-DATE_FORMAT(a.published_date, '%Y-%m-%d') as PUBLISHED_DATE
-FROM book a JOIN author b
-WHERE a.author_id = b.author_id AND a.category='경제'
-ORDER BY a.published_date;
+SELECT B.BOOK_ID, A.AUTHOR_NAME, DATE_FORMAT(B.PUBLISHED_DATE,'%Y-%m-%d') AS PUBLISHED_DATE
+FROM BOOK b
+JOIN AUTHOR A ON A.AUTHOR_ID = B.AUTHOR_ID
+WHERE B.CATEGORY='경제'
+ORDER BY 3;
