@@ -1,0 +1,14 @@
+-- 코드를 입력하세요
+SELECT AI.NAME, AI.DATETIME 
+FROM ANIMAL_INS AI
+LEFT JOIN ANIMAL_OUTS AO ON AO.ANIMAL_ID = AI.ANIMAL_ID
+WHERE AO.DATETIME IS NULL
+ORDER BY 2
+LIMIT 3;
+
+
+
+# A412697	Dog	2016-01-03 16:25:00	Normal	Jackie	Neutered Male					
+# A413789	Dog	2016-04-19 13:28:00	Normal	Benji	Spayed Female					
+# A414198	Dog	2015-01-29 15:01:00	Normal	Shelly	Spayed Female					
+# A414513	Dog	2016-06-07 09:17:00	Normal	Rocky	Neutered Male					
