@@ -1,51 +1,49 @@
-import java.util.*;
-class Solution {
+import java.util.ArrayList;
+import java.util.List;
 
-    static int[] dx = {1, 0, -1, 0};
-    static int[] dy = {0, 1, 0, -1};
-    int cnt;
+class Solution {
     String[] maps;
+    boolean[][] visit;
+    int[] dy = {1,0,-1,0};
+    int[] dx = {0,1,0,-1};
 
     public int[] solution(String[] maps) {
         this.maps = maps;
-
-        int x = maps[0].length();
-        int y = maps.length;
-        boolean[][] visited = new boolean[y][x];
+        this.visit = new boolean[maps.length][maps[0].length()];
+        int[] answer = {};
         List<Integer> list = new ArrayList<>();
 
-        for (int i = 0; i < x; i++) {
-            for (int j = 0; j < y; j++) {
-                if (!visited[j][i] && maps[j].charAt(i) != 'X') {
-                    cnt = 0;
-                    dfs(j, i, visited);
-                    list.add(cnt);
+        for (int i = 0; i < maps.length; i++) {
+            for (int j = 0; j < maps[0].length(); j++) {
+                if(!visit[i][j] && maps[i].charAt(j) != 'X'){
+                    int sum = dfs(i,j,0);
+                    list.add(sum);
                 }
             }
         }
-
-        if (list.isEmpty()) {
-            return new int[]{-1};
+        if(list.isEmpty()){
+            answer = new int[]{-1};
         } else {
-            Collections.sort(list);
+            answer = list.stream().sorted().mapToInt(i -> i).toArray();    
         }
-        int[] answer = new int[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            answer[i] = list.get(i);
-        }
+
         return answer;
     }
 
-    private void dfs(int y, int x, boolean[][] visited) {
-        visited[y][x] = true;
-        cnt+= maps[y].charAt(x) -'0';
-        System.out.println("cnt = " + cnt);
+    private int dfs(int y, int x, int sum) {
 
-        for (int i = 0; i < 4; i++) {
-            int nx = x + dx[i];
-            int ny = y + dy[i];
-            if(nx >= 0 && nx < visited[0].length && ny >= 0 && ny < visited.length && !visited[ny][nx] && maps[ny].charAt(nx) != 'X')
-                dfs(y + dy[i], x + dx[i], visited);
+        int nowSum = sum + Integer.parseInt(String.valueOf(maps[y].charAt(x)));
+        visit[y][x] = true;
+
+        for(int i = 0; i <= 3; i++){
+            int ny = dy[i]+y;
+            int nx = dx[i]+x;
+
+            if(0 <= ny && 0 <= nx && ny < maps.length && nx < maps[0].length() && !visit[ny][nx] && maps[ny].charAt(nx) != 'X'){
+                nowSum = dfs(ny,nx,nowSum);
+            }
+
         }
+        return nowSum;
     }
 }
