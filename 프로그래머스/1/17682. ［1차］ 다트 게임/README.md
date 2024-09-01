@@ -1,14 +1,14 @@
 # [level 1] [1차] 다트 게임 - 17682 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17682) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17682#qna) 
 
 ### 성능 요약
 
-메모리: 77.3 MB, 시간: 0.03 ms
+메모리: 74.5 MB, 시간: 0.11 ms
 
 ### 구분
 
-코딩테스트 연습 > 2018 KAKAO BLIND RECRUITMENT
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 17일 12:53:17
+2024년 09월 01일 16:40:32
 
 ### 문제 설명
 

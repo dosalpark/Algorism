@@ -1,39 +1,76 @@
 class Solution {
 
     public int solution(String dartResult) {
-        int[] shoot = new int[3];
-        int oneShoot = 0;
-        int shootCount = 0;
+        int answer = 0;
+        String[] round = new String[3];
+        int[] roundScore = new int[3];
 
+        int index = 0;
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < dartResult.length(); i++) {
-            //점수 저장
-            if (dartResult.charAt(i) >= '0' && dartResult.charAt(i) <= '9') {
-                oneShoot = oneShoot * 10 + dartResult.charAt(i) - '0';
+            char ch = dartResult.charAt(i);
+            sb.append(ch);
+            if (i == dartResult.length() - 1) {
+                round[index] = sb.toString();
+                continue;
             }
 
-            if (dartResult.charAt(i) == 'S' || dartResult.charAt(i) == 'D'
-                || dartResult.charAt(i) == 'T') {
-                if (dartResult.charAt(i) == 'D') {
-                    oneShoot = oneShoot * oneShoot;
-                } else if (dartResult.charAt(i) == 'T') {
-                    oneShoot = oneShoot * oneShoot * oneShoot;
+            if (ch == 'S' || ch == 'T' || ch == 'D') {
+                if (dartResult.charAt(i + 1) == '*' || dartResult.charAt(i + 1) == '#') {
+                    continue;
                 }
-                shoot[shootCount] = oneShoot;
-                oneShoot = 0;
-                shootCount++;
+                round[index] = sb.toString();
+                sb.setLength(0);
+                index++;
             }
 
-            if (dartResult.charAt(i) == '*') {
-                if (shootCount > 1) {
-                    shoot[shootCount - 2] *= 2;
+            if (ch == '*' || ch == '#') {
+                round[index] = sb.toString();
+                sb.setLength(0);
+                index++;
+            }
+        }
+
+        for (int i = 0; i < 3; i++) {
+            StringBuilder scoreStr = new StringBuilder();
+            for (int j = 0; j < round[i].length(); j++) {
+                char ch = round[i].charAt(j);
+                if ('0' <= ch && ch <= '9') {
+                    scoreStr.append(ch);
+                    continue;
                 }
-                shoot[shootCount - 1] *= 2;
-            } else if (dartResult.charAt(i) == '#') {
-                shoot[shootCount - 1] *= -1;
+
+                if (ch == 'S') {
+                    int score = Integer.parseInt(scoreStr.toString());
+                    roundScore[i] = score;
+                    continue;
+                } else if (ch == 'D') {
+                    int score = Integer.parseInt(scoreStr.toString());
+                    roundScore[i] = score * score;
+                    continue;
+                } else if (ch == 'T') {
+                    int score = Integer.parseInt(scoreStr.toString());
+                    roundScore[i] = score * score * score;
+                    continue;
+                }
+
+                if (ch == '#') {
+                    roundScore[i] *= -1;
+                }
+                if (ch == '*') {
+                    roundScore[i] *= 2;
+                    if (i != 0) {
+                        roundScore[i - 1] *= 2;
+                    }
+                }
+
             }
 
         }
 
-        return shoot[0] + shoot[1] + shoot[2];
+        for (int i = 0; i < 3; i++) {
+            answer += roundScore[i];
+        }
+        return answer;
     }
 }
