@@ -1,14 +1,14 @@
 # [level 1] 3진법 뒤집기 - 68935 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/68935#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/68935) 
 
 ### 성능 요약
 
-메모리: 76.7 MB, 시간: 0.15 ms
+메모리: 79.4 MB, 시간: 0.12 ms
 
 ### 구분
 
-코딩테스트 연습 > 월간 코드 챌린지 시즌1
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 06일 12:24:48
+2024년 09월 01일 12:06:35
 
 ### 문제 설명
 
