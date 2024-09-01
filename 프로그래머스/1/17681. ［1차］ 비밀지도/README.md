@@ -1,14 +1,14 @@
 # [level 1] [1차] 비밀지도 - 17681 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17681) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17681#qna) 
 
 ### 성능 요약
 
-메모리: 74.9 MB, 시간: 9.53 ms
+메모리: 81.8 MB, 시간: 2.55 ms
 
 ### 구분
 
-코딩테스트 연습 > 2018 KAKAO BLIND RECRUITMENT
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 09일 03:43:44
+2024년 09월 01일 15:15:06
 
 ### 문제 설명
 
