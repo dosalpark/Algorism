@@ -1,14 +1,14 @@
 # [level 1] 소수 만들기 - 12977 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12977) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12977#qna) 
 
 ### 성능 요약
 
-메모리: 83 MB, 시간: 1.03 ms
+메모리: 80 MB, 시간: 6.97 ms
 
 ### 구분
 
-코딩테스트 연습 > Summer／Winter Coding（～2018）
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 17일 00:19:30
+2024년 09월 02일 17:30:36
 
 ### 문제 설명
 
