@@ -1,30 +1,23 @@
-import java.util.Stack;
 class Solution {
     public String solution(String[] cards1, String[] cards2, String[] goal) {
-        String answer = "No";
-        Stack<String> cards1Stack = new Stack<>();
-        Stack<String> cards2Stack = new Stack<>();
-        for (int i = cards1.length-1; i >=0; i--){
-            cards1Stack.push(cards1[i]);
-        }
-        for (int i = cards2.length-1; i >=0; i--){
-            cards2Stack.push(cards2[i]);
-        }
-
-        for (String s : goal) {
-            boolean[] isEmpty = {true, true};
-            if(!cards1Stack.isEmpty() && cards1Stack.peek().equals(s)){
-                isEmpty[0] = false;
-                cards1Stack.pop();
-            } else if (!cards2Stack.isEmpty() && cards2Stack.peek().equals(s)){
-                isEmpty[1] = false;
-                cards2Stack.pop();
+        String answer = "Yes";
+        int index1 = 0;
+        int index2 = 0;
+        
+        for(int i = 0; i < goal.length; i++){
+            if(index1 < cards1.length && cards1[index1].equals(goal[i])){
+                index1++;
+                continue;
             }
-            if(isEmpty[0] && isEmpty[1]){
-                return answer;
+            if(index2 < cards2.length && cards2[index2].equals(goal[i])){
+                index2++;
+                continue;
             }
+            
+            answer = "No";
+            break;
         }
-        answer = "Yes";
+        
         return answer;
     }
 }
