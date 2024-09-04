@@ -1,14 +1,14 @@
 # [level 1] 크기가 작은 부분문자열 - 147355 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/147355) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/147355#qna) 
 
 ### 성능 요약
 
-메모리: 72 MB, 시간: 0.11 ms
+메모리: 78.3 MB, 시간: 5.45 ms
 
 ### 구분
 
-코딩테스트 연습 > 연습문제
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 25일 22:54:51
+2024년 09월 04일 18:09:20
 
 ### 문제 설명
 
