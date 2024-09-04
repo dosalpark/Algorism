@@ -1,14 +1,14 @@
 # [level 1] 정수 제곱근 판별 - 12934 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12934) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12934#qna) 
 
 ### 성능 요약
 
-메모리: 80.1 MB, 시간: 0.03 ms
+메모리: 78.1 MB, 시간: 0.08 ms
 
 ### 구분
 
-코딩테스트 연습 > 연습문제
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 04월 20일 23:19:25
+2024년 09월 04일 18:18:46
 
 ### 문제 설명
 
