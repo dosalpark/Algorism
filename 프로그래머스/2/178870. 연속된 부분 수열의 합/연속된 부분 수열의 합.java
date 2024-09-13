@@ -1,44 +1,45 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+
 class Solution {
+
     public int[] solution(int[] sequence, int k) {
         int[] answer = new int[2];
-        int length = sequence.length;
-        int left = 0, right = 0, sum = sequence[0];
         List<String> list = new ArrayList<>();
+        int left = 0;
+        int right = 0;
+        int sum = sequence[0];
 
         while (true) {
-            if (length == left && length == right) {
+            if (sum == k) {
+                list.add(left + ":" + right + ":" + (right - left));
+            }
+
+            if (left == sequence.length && right == sequence.length) {
                 break;
             }
-            if (k == sum) {
-                int minus = right - left;
-                list.add(minus + " " + left + " " + right);
-            }
-            if (sum <= k && right < length) {
+
+            if (sum <= k && right < sequence.length) {
                 right++;
-                if (right < length) {
+                if (right < sequence.length) {
                     sum += sequence[right];
                 }
             } else {
-                if (left < length) {
+                if (left < sequence.length) {
                     sum -= sequence[left];
                 }
                 left++;
             }
-        }
-        list.sort(new Comparator<String>() {
-            @Override
-            public int compare(String o1, String o2) {
-                if(o1.split(" ")[0] == o2.split(" ")[0]){
-                    return Integer.parseInt(o1.split(" ")[1]) - Integer.parseInt((o2.split(" ")[1]));
-                }
-                return Integer.parseInt(o1.split(" ")[0]) - Integer.parseInt(o2.split(" ")[0]);
-            }
-        });
-        String ans = list.get(0);
-        answer[0] = Integer.parseInt(ans.split(" ")[1]);
-        answer[1] = Integer.parseInt(ans.split(" ")[2]);
 
+        }
+        
+        list.sort((o1, o2) -> {
+            return Integer.parseInt(o1.split(":")[2]
+            ) - Integer.parseInt(o2.split(":")[2]);
+        });
+        String first = list.get(0);
+        answer[0] = Integer.parseInt(first.split(":")[0]);
+        answer[1] = Integer.parseInt(first.split(":")[1]);
         return answer;
     }
 }
