@@ -1,22 +1,39 @@
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+
 class Solution {
+
     public int solution(String s) {
-        int answer = 0;
-        Map<Integer, String> map = new HashMap<>();
-        map.put(0, "zero");
-        map.put(1, "one");
-        map.put(2, "two");
-        map.put(3, "three");
-        map.put(4, "four");
-        map.put(5, "five");
-        map.put(6, "six");
-        map.put(7, "seven");
-        map.put(8, "eight");
-        map.put(9, "nine");
-        
-        for (int i = 0; i < map.size(); i++){
-            s = s.replaceAll(map.get(i),String.valueOf(i));
+        StringBuilder answer = new StringBuilder();
+        Map<String, Integer> map = new HashMap<>();
+        String[] numbers = {"zero", "one", "two", "three", "four", "five", "six", "seven", "eight",
+            "nine"};
+        for (int i = 0; i < numbers.length; i++) {
+            map.put(numbers[i], i);
         }
-        return Integer.parseInt(s);
+
+        int i = 0;
+        for (; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if ('0' <= ch && ch <= '9') {
+                answer.append(ch);
+            } else {
+                StringBuilder sb = new StringBuilder();
+                sb.append(ch);
+                while (true) {
+                    if (i == s.length() - 1) {
+                        break;
+                    }
+                    i++;
+                    sb.append(s.charAt(i));
+                    if (map.containsKey(sb.toString())) {
+                        answer.append(map.get(sb.toString()));
+                        break;
+                    }
+                }
+
+            }
+        }
+        return Integer.parseInt(answer.toString());
     }
 }
