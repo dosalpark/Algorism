@@ -1,35 +1,45 @@
 import java.util.*;
+
 class Solution {
+
     public int solution(String s) {
         int answer = 0;
-        List<String> bracket = new ArrayList<>();
-        bracket.add("{}");
-        bracket.add("()");
-        bracket.add("[]");
-
-        for(int i = 0; i < s.length(); i++){
-            String left = s.substring(i) + s.substring(0,i);
-            Stack<Character> stack = new Stack<>();
-
-            stack.push(left.charAt(0));
-
-            for (int j = 1; j < left.length(); j++){
-                if(stack.isEmpty()){
-                    stack.push(left.charAt(j));
-                } else {
-                    String check = String.valueOf(stack.peek()) + left.charAt(j)+"";
-                    if(bracket.contains(check)) {
-                        stack.pop();
-                    } else {
-                        stack.push(left.charAt(j));
-                    }
-                }
-            }
-            if(stack.isEmpty()){
+        int len = s.length();
+        s = s + s;
+        for (int i = 0; i < len; i++) {
+            String changeS = s.substring(i, len + i);
+            if (check(changeS)) {
                 answer++;
             }
         }
-
         return answer;
+    }
+
+    private boolean check(String changeS) {
+        Stack<String> stack = new Stack<>();
+        for (int j = 0; j < changeS.length(); j++) {
+            String now = String.valueOf(changeS.charAt(j));
+            if (now.equals("(") || now.equals("{") || now.equals("[")) {
+                stack.add(now);
+            } else {
+                String partner = "";
+                if (now.equals(")")) {
+                    partner = "(";
+                }
+                if (now.equals("}")) {
+                    partner = "{";
+                }
+                if (now.equals("]")) {
+                    partner = "[";
+                }
+
+                if (stack.isEmpty() || !stack.peek().equals(partner)) {
+                    return false;
+                }
+                stack.pop();
+            }
+
+        }
+        return stack.isEmpty();
     }
 }

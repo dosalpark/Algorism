@@ -1,14 +1,14 @@
 # [level 2] 괄호 회전하기 - 76502 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/76502) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/76502#qna) 
 
 ### 성능 요약
 
-메모리: 71.2 MB, 시간: 11.89 ms
+메모리: 95.5 MB, 시간: 86.45 ms
 
 ### 구분
 
-코딩테스트 연습 > 월간 코드 챌린지 시즌2
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 03월 20일 09:55:15
+2024년 09월 15일 16:42:31
 
 ### 문제 설명
 
