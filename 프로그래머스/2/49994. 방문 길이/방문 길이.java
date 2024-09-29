@@ -1,34 +1,47 @@
-import java.util.*;
-class Solution {    
+import java.util.ArrayList;
+import java.util.List;
+
+class Solution {
+
     public int solution(String dirs) {
-        int[][] dydx = {{1,0},{-1,0},{0,-1},{0,1}};
-        
-        int answer = 0;
-        Set<String> set = new HashSet<>();
-        Queue<int[]> que = new LinkedList<>();
-        que.add(new int[]{0,0});
-        
-        for(int i = 0; i < dirs.length(); i++){
-            int[] now = que.poll();
-            char move = dirs.charAt(i);
-            int go = 0;
-            if(move == 'U') go = 0;
-            else if(move == 'D') go = 1;
-            else if(move == 'L') go = 2;
-            else if(move == 'R') go = 3;
-            
-            int ny = now[0]+dydx[go][0];
-            int nx = now[1]+dydx[go][1];
-            
-            if(ny >= -5 && ny <=5 && nx >= -5 && nx <=5){
-                que.add(new int[]{ny,nx});
-                // System.out.println("nowY-" + now[0] + "/ nowX- "+ now[1] + "/ moveY-" +ny + "/ moveX-" + nx);
-                set.add(now[0]+","+now[1]+","+ny+","+nx);
-                set.add(ny+","+nx+","+now[0]+","+now[1]);
-            } else {
-                que.add(now);
+        int[] now = {0, 0};
+        int[][] move = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};
+        List<String> list = new ArrayList<>();
+
+        for (int i = 0; i < dirs.length(); i++) {
+            char ch = dirs.charAt(i);
+            int moving = 0;
+            switch (ch) {
+                case 'U':
+                    moving = 0;
+                    break;
+                case 'D':
+                    moving = 1;
+                    break;
+                case 'R':
+                    moving = 2;
+                    break;
+                case 'L':
+                    moving = 3;
+                    break;
             }
-        }        
-        return set.size()/2;
+
+            if (now[0] + move[moving][0] >= -5 && now[0] + move[moving][0] <= 5 &&
+                now[1] + move[moving][1] >= -5 && now[1] + move[moving][1] <= 5) {
+                String d = "" + now[0] + now[1];
+                String n = "" + (now[0] + move[moving][0]) + (now[1] + move[moving][1]);
+
+                if (!list.contains(d + n)) {
+                    list.add(d + n);
+                    list.add(n + d);
+                }
+                now[0] = now[0] + move[moving][0];
+                now[1] = now[1] + move[moving][1];
+
+            }
+
+
+        }
+        return list.size() / 2;
     }
 }
