@@ -1,53 +1,48 @@
-import java.util.*;
 class Solution {
-
-    public String sharpChange(String sheet) {
-        sheet = sheet.replaceAll("A#","a");
-        sheet = sheet.replaceAll("B#","b");
-        sheet = sheet.replaceAll("C#","c");
-        sheet = sheet.replaceAll("D#","d");
-        sheet = sheet.replaceAll("E#","e");
-        sheet = sheet.replaceAll("F#","f");
-        sheet = sheet.replaceAll("G#","g");
-        sheet = sheet.replaceAll("H#","h");
-        return sheet;
-    }
-
     public String solution(String m, String[] musicinfos) {
         String answer = "(None)";
-        int max = 0;
-        m = sharpChange(m);
+        int topPlayTime = 0;
+        m = conversion(m);
 
-        for (String music : musicinfos) {
-            String[] part = music.split(",");
-            String[] start = part[0].split(":");
-            String[] end = part[1].split(":");
-            String name = part[2];
-            String sheet = sharpChange(part[3]);
+        for (int i = 0; i < musicinfos.length; i++) {
+            String[] musicInfo = musicinfos[i].split(",");
+            String[] start = musicInfo[0].split(":");
+            String[] end = musicInfo[1].split(":");
+            String title = musicInfo[2];
+            String melody = conversion(musicInfo[3]);
+            int playTime = (Integer.parseInt(end[0]) * 60 + Integer.parseInt(end[1])) -
+                (Integer.parseInt(start[0]) * 60 + Integer.parseInt(start[1]));
 
-            int startTime = Integer.parseInt(start[0]) * 60 + Integer.parseInt(start[1]);
-            int endTime = Integer.parseInt(end[0]) * 60 + Integer.parseInt(end[1]);
-            int runningTime = endTime - startTime;
-            if (runningTime == 0) {
+            while (playTime > melody.length()) {
+                melody += melody;
+            }
+            melody = melody.substring(0, playTime);
+
+            if (melody.contains(m) && playTime > topPlayTime) {
+                topPlayTime = playTime;
+                answer = title;
+            }
+        }
+
+        return answer;
+    }
+
+    private String conversion(String m) {
+        StringBuilder sb = new StringBuilder();
+        boolean sharp = false;
+        for (int i = m.length() - 1; i >= 0; i--) {
+            if (m.charAt(i) == '#') {
+                sharp = true;
                 continue;
             }
 
-            if (runningTime > sheet.length()) {
-                String copySheet = sheet;
-                while (runningTime > sheet.length()) {
-                    sheet += copySheet;
-                }
-            }
-
-            sheet = sheet.substring(0,runningTime);
-
-            if (sheet.contains(m)){
-                if(max < runningTime){
-                    max = runningTime;
-                    answer = name;
-                }
+            if (sharp) {
+                sb.append(String.valueOf(m.charAt(i)).toLowerCase());
+                sharp = false;
+            } else {
+                sb.append(m.charAt(i));
             }
         }
-        return answer;
+        return sb.reverse().toString();
     }
 }
