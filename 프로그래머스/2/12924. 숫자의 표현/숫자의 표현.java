@@ -1,22 +1,24 @@
 class Solution {
     public int solution(int n) {
-        int answer = 1;
-        int nDivision = n/2 +1;
-        
-        for(int i = 1; i < n; i++){
-            int sum = i;
-            int add = i+1;
-            
-            while(true){
-                if(n == sum){
+        if(n == 1){
+            return 1;
+        }
+        int answer = 0;
+        int left = 1;
+        int right = 2;
+        int sum = 3;
+
+        while (right <= n && left <= n) {
+            if (sum >= n) {
+                if (sum == n) {
                     answer++;
-                    break;
-                } else if (sum > n){
-                    break;
-                }               
-                sum += add;
-                add++;
-            }            
+                }
+                sum -= left;
+                left++;
+            } else {
+                right++;
+                sum += right;
+            }
         }
         return answer;
     }
