@@ -1,36 +1,44 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 class Solution {
+
     public int[] solution(int N, int[] stages) {
         int[] answer = new int[N];
-        
-        //스테이지에 멈춰있는 사람이 몇인지 구하기
-        Map<Integer,Integer> standMap = new HashMap<>();
-        
-        for(int i = 0; i < stages.length; i++){ //0~4
-            standMap.put(stages[i],standMap.getOrDefault(stages[i],0) +1);
+        int peopleCount = stages.length;
+        Map<Integer, Integer> map = new HashMap<>();
+        List<String> list = new ArrayList<>();
+        for (int i : stages) {
+            map.put(i, map.getOrDefault(i, 0) + 1);
         }
-        
-        //스테이지별 실패율
-        double users = stages.length;
-        Map<Integer,Double> failMap = new HashMap<>();
-        
-        for (int i = 1; i <= N; i++){
-            if(standMap.containsKey(i)){
-                failMap.put(i, standMap.get(i)/users);
-                users -= standMap.get(i);
-            }else{
-                failMap.put(i, 0.0);
+
+        for (int i = 1; i <= N; i++) {
+            if (peopleCount == 0) {
+                list.add(i + " " + 0.0);
+            } else {
+                int fail = map.getOrDefault(i, 0);
+                double percent = (double) fail / peopleCount;
+                list.add(i + " " + percent);
+                peopleCount -= fail;
             }
         }
-        
-        
-        List<Integer> sortStages = new ArrayList<>(failMap.keySet());
-        Collections.sort(sortStages, (s1, s2) -> failMap.get(s2).compareTo(failMap.get(s1)));
-        
-        for(int i = 0; i < N; i++){
-            answer[i] = sortStages.get(i);
-        } 
-        
+
+        list.sort((o1, o2) -> {
+            double rate1 = Double.parseDouble(o1.split(" ")[1]);
+            double rate2 = Double.parseDouble(o2.split(" ")[1]);
+            if (rate1 == rate2) {
+                return Integer.parseInt(o1.split(" ")[0]) - Integer.parseInt(o2.split(" ")[0]);
+            } else {
+                return Double.compare(rate2, rate1);
+            }
+        });
+
+        for (int i = 0; i < list.size(); i++) {
+            answer[i] = Integer.parseInt(list.get(i).split(" ")[0]);
+        }
+
         return answer;
     }
 }
