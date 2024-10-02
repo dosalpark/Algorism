@@ -1,21 +1,30 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Stack;
+
 class Solution {
+
     public String solution(String number, int k) {
+        String answer = "";
+        StringBuilder sb = new StringBuilder();
+        int[] numbers = Arrays.stream(number.split("")).mapToInt(Integer::parseInt).toArray();
+        Stack<Integer> stack = new Stack<>();
 
-        int answerLength = number.length() - k;
-        StringBuilder answer = new StringBuilder();
-        int index = 0;
-
-        for(int i = 0; i < answerLength; i++){
-            char max = 0;
-            for(int j = index; j <= i + k; j++){
-                if(number.charAt(j) > max){
-                    max = number.charAt(j);
-                    index = j+1;
-                }
+        for (int i = 0; i < numbers.length; i++) {
+            while ( !stack.isEmpty() && stack.peek() < numbers[i] && k > 0) {
+                stack.pop();
+                k--;
             }
-            answer.append(max);
+            stack.add(numbers[i]);
         }
-        return answer.toString();
+        for (Integer integer : stack) {
+            sb.append(integer);
+        }
+        if(k != 0){
+            answer = sb.substring(0, sb.length() - k);
+        } else {
+            answer = sb.toString();
+        }
+
+        return answer;
     }
 }

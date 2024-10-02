@@ -1,14 +1,14 @@
 # [level 2] 큰 수 만들기 - 42883 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42883) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42883#qna) 
 
 ### 성능 요약
 
-메모리: 77.8 MB, 시간: 0.03 ms
+메모리: 145 MB, 시간: 201.51 ms
 
 ### 구분
 
-코딩테스트 연습 > 탐욕법（Greedy）
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 15일 16:30:44
+2024년 10월 02일 15:05:50
 
 ### 문제 설명
 
