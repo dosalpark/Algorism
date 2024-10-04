@@ -1,32 +1,27 @@
-
 class Solution {
+
     public int solution(int storey) {
         int answer = 0;
-        int floor = 1;
-        while (true){
-            if(storey == 0){
-                break;
-            }
+        int m = 10;
 
-            if(storey%10 == 0){
-                while(true){
-                    storey /= 10;
-                    if(storey%10 != 0) break;
-                }
-            }
-
-            if(storey%10 > 5){
-                storey += floor;
-            } else if(storey%10 < 5){
-                storey -= floor;
-            } else {
-                if(storey%100 >= 50){
-                    storey += floor;
-                } else {
-                    storey -= floor;
-                }
-            }
+        while (storey != 0) {
             answer++;
+            while (storey % m == 0) {
+                storey /= 10;
+            }
+
+            if (storey % m < 5) {
+                storey -= m / 10;
+            } else if (storey % m > 5) {
+                storey += m / 10;
+            } else {
+                if(storey % 100 >= 50){
+                    storey += m / 10;
+                } else {
+                    storey -= m / 10;
+                }
+            }
+
         }
         return answer;
     }
