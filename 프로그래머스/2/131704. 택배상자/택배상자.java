@@ -1,18 +1,19 @@
-import java.util.*;
+import java.util.Stack;
+
 class Solution {
-    public int solution(int[] order){
+
+    public int solution(int[] order) {
         int answer = 0;
         Stack<Integer> stack = new Stack<>();
-        int orderSize = order.length;
         int index = 0;
-        for(int i = 1; i <= order.length; i++){
-            if(i != order[index]){
+        for (int i = 1; i <= order.length; i++) {
+            if (order[index] != i) {
                 stack.push(i);
             } else {
-                answer++;
                 index++;
+                answer++;
             }
-            while(!stack.isEmpty() && stack.peek() == order[index]){
+            while (!stack.isEmpty() && stack.peek() == order[index]) {
                 stack.pop();
                 index++;
                 answer++;
