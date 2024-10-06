@@ -1,14 +1,14 @@
 # [level 2] [1차] 프렌즈4블록 - 17679 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17679#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/17679) 
 
 ### 성능 요약
 
-메모리: 83.8 MB, 시간: 18.09 ms
+메모리: 91.4 MB, 시간: 28.64 ms
 
 ### 구분
 
-코딩테스트 연습 > 2018 KAKAO BLIND RECRUITMENT
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 27일 17:10:52
+2024년 10월 06일 22:00:57
 
 ### 문제 설명
 
