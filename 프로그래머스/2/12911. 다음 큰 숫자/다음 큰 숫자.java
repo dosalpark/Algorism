@@ -1,25 +1,17 @@
 class Solution {
-
     public int solution(int n) {
-        int oneCount = counter(n);
-
-        int next = n + 1;
-        while (true) {
-            if (oneCount == counter(next)) {
-                return next;
-            }
-            next++;
-        }
-    }
-
-    public int counter(int n) {
-        String nstr = Integer.toBinaryString(n);
-        int count = 0;
-        for (int i = 0; i < nstr.length(); i++) {
-            if (nstr.charAt(i) == '1') {
-                count++;
+        int answer = 0;
+        int checkN = Integer.bitCount(n);
+        int checkNext = 0;
+        while(true){
+            n++;
+            checkNext = Integer.bitCount(n);
+            if(checkN == checkNext){
+                answer = n;
+                break;
             }
         }
-        return count;
+
+        return answer;
     }
 }
