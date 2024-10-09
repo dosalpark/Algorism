@@ -1,14 +1,14 @@
 # [level 2] 점프와 순간 이동 - 12980 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12980#qna) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12980) 
 
 ### 성능 요약
 
-메모리: 52.9 MB, 시간: 0.02 ms
+메모리: 67 MB, 시간: 0.03 ms
 
 ### 구분
 
-코딩테스트 연습 > Summer／Winter Coding（～2018）
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 05월 25일 10:04:55
+2024년 10월 09일 23:28:14
 
 ### 문제 설명
 
