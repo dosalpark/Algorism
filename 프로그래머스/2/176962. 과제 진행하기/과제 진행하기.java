@@ -1,54 +1,63 @@
-import java.util.*;
+import java.util.Arrays;
+import java.util.Stack;
 
 class Solution {
+
     public String[] solution(String[][] plans) {
         String[] answer = new String[plans.length];
         Stack<String> stack = new Stack<>();
-        List<String> answerList = new ArrayList<>();
+        int answerIndex = 0;
+        Arrays.sort(plans, (o1, o2) -> {
+            int a = (Integer.parseInt(o1[1].split(":")[0]) * 60) + Integer.parseInt(
+                o1[1].split(":")[1]);
+            int b = (Integer.parseInt(o2[1].split(":")[0]) * 60) + Integer.parseInt(
+                o2[1].split(":")[1]);
+            return a - b;
+        });
 
-        // 정렬 (시간순으로)
-        Arrays.sort(plans, (a, b) -> a[1].compareTo(b[1]));
+        for (int i = 0; i < plans.length; i++) {
+            String name = plans[i][0];
+            int nowTime = converter(plans[i][1]);
+            int playTime = Integer.parseInt(plans[i][2]);
 
-        for (int i = 0; i < plans.length - 1; i++) {
-            String[] now = plans[i];
-            int nowTime = Integer.parseInt(now[1].split(":")[0]) * 60 + Integer.parseInt(now[1].split(":")[1]) + Integer.parseInt(now[2]);
-            String[] next = plans[i + 1];
-            int nextTime = Integer.parseInt(next[1].split(":")[0]) * 60 + Integer.parseInt(next[1].split(":")[1]);
-            int time = nextTime - nowTime;
-
-            // 시간내에 끝내면
-            if (time >= 0) {
-                answerList.add(now[0]);
-                while (!stack.isEmpty()) {
-                    String open = stack.pop();
-                    String sub = open.split(" ")[0];
-                    int runtime = Integer.parseInt(open.split(" ")[1]);
-
-                    if (time - runtime >= 0) {
-                        answerList.add(sub);
-                        time -= runtime;
-                    } else {
-                        stack.push(sub + " " + (runtime - time));
-                        break;
-                    }
-                }
+            if (i == plans.length - 1) {
+                answer[answerIndex] = name;
+                answerIndex++;
             } else {
-                stack.push(now[0] + " " + (-time));
+                int remainTime = converter(plans[i + 1][1]) - (nowTime + playTime);
+                if (remainTime >= 0) {
+                    answer[answerIndex] = name;
+                    answerIndex++;
+
+                    while (!stack.isEmpty() && remainTime >= 0) {
+                        String cur = stack.pop();
+                        String remainName = cur.split(" ")[0];
+                        int remainPlayTime = Integer.parseInt(cur.split(" ")[1]);
+                        remainTime -= remainPlayTime;
+                        if (remainTime >= 0) {
+                            answer[answerIndex] = remainName;
+                            answerIndex++;
+                        } else {
+                            stack.push(remainName + " " + Math.abs(remainTime));
+                        }
+                    }
+                } else {
+                    stack.push(name + " " + Math.abs(remainTime));
+                }
             }
         }
 
-        // 마지막 계획 추가
-        answerList.add(plans[plans.length - 1][0]);
-
-        // 남은 스택 처리
-        while (!stack.isEmpty()) {
-            String open = stack.pop();
-            String sub = open.split(" ")[0];
-            answerList.add(sub);
+        while (!stack.isEmpty()){
+            answer[answerIndex] = stack.pop().split(" ")[0];
+            answerIndex++;
         }
 
-        // List를 배열로 변환
-        answer = answerList.toArray(new String[0]);
         return answer;
+    }
+
+    private int converter(String startTime) {
+        return Integer.parseInt(startTime.split(":")[0]) * 60
+            + Integer.parseInt(startTime.split(":")[1]);
+
     }
 }
