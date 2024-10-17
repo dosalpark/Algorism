@@ -1,6 +1,6 @@
 # [level 2] 중성화 여부 파악하기 - 59409 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59409) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/59409#qna) 
 
 ### 성능 요약
 
@@ -8,7 +8,7 @@
 
 ### 구분
 
-코딩테스트 연습 > String， Date
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@ Empty
 
 ### 제출 일자
 
-2024년 03월 21일 10:15:11
+2024년 10월 17일 11:42:14
 
 ### 문제 설명
 
