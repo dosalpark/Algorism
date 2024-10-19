@@ -1,72 +1,63 @@
-import java.util.*;
+import java.util.LinkedList;
+import java.util.Queue;
+
 class Solution {
 
-    static int[] dx = {0, 0, 1, -1};
-    static int[] dy = {1, -1, 0, 0};
+    int[] dy = {0, 0, 1, -1};
+    int[] dx = {1, -1, 0, 0};
     String[] maps;
 
-    public int bfs(int startY, int startX, char end) {
-        Queue<int[]> que = new LinkedList<>();
-        boolean[][] visited = new boolean[maps.length][maps[0].length()];
-
-        int answer = 0;
-        que.add(new int[]{startY, startX, 0});
-        visited[startY][startX] = true;
-
-        while (!que.isEmpty()) {
-            int[] now = que.poll();
-
-            if (maps[now[0]].charAt(now[1]) == end) {
-                if (answer != 0) {
-                    answer = Math.min(answer, now[2]);
-                } else {
-                    answer = now[2];
-                }
-                return answer;
-            }
-
-            for (int i = 0; i < 4; i++) {
-                int x = now[1] + dx[i];
-                int y = now[0] + dy[i];
-                int sum = now[2];
-
-                if (x >= 0 && y >= 0 && maps.length > y && maps[0].length() > x
-                    && maps[y].charAt(x) != 'X' && !visited[y][x]) {
-                    que.add(new int[]{y, x, sum + 1});
-                    visited[y][x] = true;
-                }
-            }
-        }
-        return answer;
-    }
-        
     public int solution(String[] maps) {
         this.maps = maps;
-        int x = maps[0].length();
-        int y = maps.length;
-        int[] start = new int[2];
-        int[] flag = new int[2];
+        int[] start = new int[]{0, 0};
+        int[] check = new int[]{0, 0};
+        int[] end = new int[]{0, 0};
 
-        for (int j = 0; j < y; j++) {
-            for (int i = 0; i < x; i++) {
-                if (maps[j].charAt(i) == 'S') {
-                    start[0] = j;
-                    start[1] = i;
-                } else if (maps[j].charAt(i) == 'L') {
-                    flag[0] = j;
-                    flag[1] = i;
+        for (int i = 0; i < maps.length; i++) {
+            for (int j = 0; j < maps[i].length(); j++) {
+                char ch = maps[i].charAt(j);
+                if (ch == 'S') {
+                    start = new int[]{i, j};
+                }
+                if (ch == 'L') {
+                    check = new int[]{i, j};
+                }
+                if (ch == 'E') {
+                    end = new int[]{i, j};
                 }
             }
         }
-        int a = bfs(start[0], start[1], 'L');
-        if (a == 0) {
-            return -1;
-        }
-        int b = bfs(flag[0], flag[1], 'E');
-        if (b == 0) {
-            return -1;
-        }
+        int checkCount = go(new int[]{start[0], start[1]}, check);
+        int endCount = go(new int[]{check[0], check[1]}, end);
 
-        return a + b;
+        return (checkCount == -1 || endCount == -1) ? -1 : checkCount + endCount;
+    }
+
+    private int go(int[] now, int[] target) {
+        Queue<int[]> queue = new LinkedList<>();
+        boolean[][] visit = new boolean[maps.length][maps[0].length()];
+
+        queue.add(new int[]{now[0], now[1], 0});
+        visit[now[0]][now[1]] = true;
+        while (!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            int y = cur[0];
+            int x = cur[1];
+            int count = cur[2];
+
+            if (cur[0] == target[0] && cur[1] == target[1]) {
+                return cur[2];
+            }
+            for (int i = 0; i < 4; i++) {
+                int ny = cur[0] + dy[i];
+                int nx = cur[1] + dx[i];
+                if (0 <= ny && 0 <= nx && ny < visit.length && nx < visit[0].length
+                    && maps[ny].charAt(nx) != 'X' && !visit[ny][nx]) {
+                    visit[ny][nx] = true;
+                    queue.add(new int[]{ny, nx, count + 1});
+                }
+            }
+        }
+        return -1;
     }
 }
