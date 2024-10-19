@@ -1,23 +1,19 @@
 class Solution {
     public String solution(int n, int t, int m, int p) {
-        String answer = "";
-        int max = t * m;
-        StringBuilder sb = new StringBuilder();
-        //총 구해야하는 갯수 t*m
-        for(int i = 0; i < 99999; i++){
-            String converter = Integer.toString(i,n).toUpperCase();
-            sb.append(converter);
-            
-            if(max < sb.length()) break;
+        StringBuilder result = new StringBuilder();
+        for(int i = 0; i < t*m; i++){
+            result.append(Integer.toString(i,n));
         }
-        
-        for(int i = p-1; i < sb.length(); i = i + m){
-            if(t == 0) break;
-            answer+= "" + sb.charAt(i);
-            t--;
+        String[] arr = result.toString().split("");
+        result.setLength(0);
+
+        for(int i = p-1; i < arr.length; i=i+m){
+            result.append(arr[i]);
+            if(result.length()==t){
+                break;
+            }
         }
-        
-        
-        return answer;
+
+        return result.toString().toUpperCase();
     }
 }
