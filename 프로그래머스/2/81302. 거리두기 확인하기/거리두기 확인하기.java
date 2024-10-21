@@ -1,86 +1,70 @@
-import java.util.LinkedList;
-import java.util.Queue;
-
 class Solution {
 
-    boolean flag;
-    boolean[][] visited;
-
     public int[] solution(String[][] places) {
-        int[] answer = new int[]{1, 1, 1, 1, 1};
-        for (int q = 0; q < places.length; q++) {
-            flag = false;
-            for (int i = 0; i < 5; i++) {
-                for (int j = 0; j < 5; j++) {
-                    if (places[q][i].charAt(j) == 'P') {
-                        visited = new boolean[5][5];
-                        bfs(new Count(i, j, 0), places[q]);
-                        if (flag) {
-                            answer[q] = 0;
-                            break;
-                        }
-                    }
-                }
-                if (flag) break;
-            }
+        int[] answer = new int[places.length];
+
+        for (int i = 0; i < places.length; i++) {
+            answer[i] = check(places[i]) ? 1 : 0;
         }
         return answer;
     }
 
-    private void bfs(Count start, String[] place) {
-        int[] dx = {1, -1, 0, 0};
+    private boolean check(String[] place) {
         int[] dy = {0, 0, 1, -1};
+        int[] dx = {1, -1, 0, 0};
+        for (int y = 0; y < place.length; y++) {
+            for (int x = 0; x < place[y].length(); x++) {
+                char ch = place[y].charAt(x);
+                if (ch == 'P') {
+                    for (int i = 0; i < 4; i++) {
+                        int ny = y + dy[i];
+                        int nx = x + dx[i];
+                        if (lengthCheck(ny, nx)) {
+                            if (place[ny].charAt(nx) == 'P') {
+                                return false;
+                            }
+                            if (place[ny].charAt(nx) == 'O') {
+                                if (lengthCheck(ny + dy[i], nx + dx[i])) {
+                                    if (place[ny + dy[i]].charAt(nx + dx[i]) == 'P') {
+                                        return false;
+                                    }
+                                }
+                                if (Math.abs(dy[i]) == 1) {
+                                    if (lengthCheck(ny, nx - 1)) {
+                                        if (place[ny].charAt(nx - 1) == 'P') {
+                                            return false;
+                                        }
+                                    }
+                                    if (lengthCheck(ny, nx + 1)) {
+                                        if (place[ny].charAt(nx + 1) == 'P') {
+                                            return false;
+                                        }
+                                    }
+                                } else {
+                                    if (lengthCheck(ny - 1, nx)) {
+                                        if (place[ny - 1].charAt(nx) == 'p') {
+                                            return false;
+                                        }
+                                    }
+                                    if (lengthCheck(ny + 1, nx)) {
+                                        if (place[ny + 1].charAt(nx) == 'p') {
+                                            return false;
+                                        }
+                                    }
+                                }
 
-        Queue<Count> queue = new LinkedList<>();
-        queue.add(start);
-        visited[start.getY()][start.getX()] = true;
+                            }
+                        }
 
-        while (!queue.isEmpty()) {
-            Count cur = queue.poll();
-            int x = cur.getX();
-            int y = cur.getY();
-            int count = cur.getCount();
-
-            if (count > 0 && place[y].charAt(x) == 'P') {
-                flag = true;
-                return;
-            }
-
-            if (count >= 2) continue;
-
-            for (int i = 0; i < 4; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
-
-                if (nx >= 0 && nx < 5 && ny >= 0 && ny < 5 && !visited[ny][nx] && place[ny].charAt(nx) != 'X') {
-                    visited[ny][nx] = true;
-                    queue.add(new Count(ny, nx, count + 1));
+                    }
                 }
             }
         }
-    }
-}
-
-class Count {
-    int y;
-    int x;
-    int count;
-
-    public Count(int y, int x, int count) {
-        this.y = y;
-        this.x = x;
-        this.count = count;
+        return true;
     }
 
-    int getY() {
-        return this.y;
+    private boolean lengthCheck(int y, int x) {
+        return 0 <= y && 0 <= x && y < 5 && x < 5;
     }
 
-    int getX() {
-        return this.x;
-    }
-
-    int getCount() {
-        return this.count;
-    }
 }
