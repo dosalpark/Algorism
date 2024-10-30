@@ -10,6 +10,7 @@ class Solution {
         int[] line = new int[land[0].length];
         int[] dy = {0, 0, 1, -1};
         int[] dx = {1, -1, 0, 0};
+        int answer = 0;
 
         for (int i = 0; i < land[0].length; i++) {
             for (int j = 0; j < land.length; j++) {
@@ -37,12 +38,13 @@ class Solution {
                     }
                     for (Integer integer : petroleumLine) {
                         line[integer] += petroleum;
+                        answer = Math.max(answer,line[integer]);
                     }
                 }
             }
         }
-        Arrays.sort(line);
-        return line[line.length - 1];
+    
+        return answer;
     }
 
     private boolean check(int ny, int nx, int[][] land) {
