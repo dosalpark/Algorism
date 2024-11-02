@@ -1,14 +1,14 @@
 # [level 2] H-Index - 42747 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42747) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/42747#qna) 
 
 ### 성능 요약
 
-메모리: 80.4 MB, 시간: 0.48 ms
+메모리: 76 MB, 시간: 1.06 ms
 
 ### 구분
 
-코딩테스트 연습 > 정렬
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 03월 21일 09:37:01
+2024년 11월 02일 17:22:57
 
 ### 문제 설명
 
