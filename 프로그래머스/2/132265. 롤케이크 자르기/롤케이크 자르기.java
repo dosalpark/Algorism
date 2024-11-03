@@ -1,23 +1,28 @@
-import java.util.*;
-class Solution {
-    public int solution(int[] topping) {
-        int answer = 0;
-        Map<Integer, Integer> left = new HashMap<>();
-        Map<Integer, Integer> right = new HashMap<>();
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
-        for(int i : topping){
-            left.put(i,left.getOrDefault(i,0)+1);
+public class Solution {
+
+    public int solution(int[] topping) {
+        Set<Integer> Lset = new HashSet<>();
+        Map<Integer, Integer> RMap = new HashMap<>();
+        int answer = 0;
+
+        for (int t : topping) {
+            RMap.put(t, RMap.getOrDefault(t, 0) + 1);
         }
 
-        for(int i = topping.length -1; i >= 0; i--) {
-            if(left.get(topping[i]) > 1){
-                left.put(topping[i], left.get(topping[i]) -1);
-            } else if (left.get(topping[i]) == 1){
-                left.remove(topping[i]);
-            }
-            right.put(topping[i], left.getOrDefault(topping[i],0)+1);
+        for (int t : topping) {
+            Lset.add(t);
+            RMap.put(t, RMap.get(t) - 1);
 
-            if(left.size() == right.size()){
+            if (RMap.get(t) == 0) {
+                RMap.remove(t);
+            }
+
+            if (Lset.size() == RMap.size()) {
                 answer++;
             }
         }
