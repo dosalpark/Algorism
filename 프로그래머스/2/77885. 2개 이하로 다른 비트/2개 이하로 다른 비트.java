@@ -4,22 +4,27 @@ class Solution {
         long[] answer = new long[numbers.length];
 
         for (int i = 0; i < numbers.length; i++) {
-            if (numbers[i] % 2 == 0) {
+            String binaryNum = "0" + Long.toBinaryString(numbers[i]);
+            if (binaryNum.charAt(binaryNum.length() - 1) == '0') {
                 answer[i] = numbers[i] + 1;
             } else {
-                String bin = Long.toBinaryString(numbers[i]);
-                int lastZero = bin.lastIndexOf('0');
-                String ans = "";
-                if (lastZero == -1) {
-                    ans = "10" + bin.substring(1);
-                } else {
-                    ans = bin.substring(0, lastZero) + "10" + bin.substring(lastZero + 2);
+                int now = binaryNum.length() - 2;
+                for (; now >= 0; now--) {
+                    if (binaryNum.charAt(now) == '0') {
+                        break;
+                    }
                 }
-                answer[i] = Long.parseLong(ans, 2);
-
+                StringBuilder sb = new StringBuilder(binaryNum.substring(0, now));
+                for (int j = 0; j < binaryNum.length() - now; j++) {
+                    if(j == 1){
+                        sb.append(0);
+                    } else {
+                        sb.append(1);
+                    }
+                }
+                answer[i] = Long.parseLong(sb.toString(),2);
             }
         }
-
         return answer;
     }
 }
