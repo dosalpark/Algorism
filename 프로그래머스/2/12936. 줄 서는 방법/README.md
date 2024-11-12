@@ -1,14 +1,14 @@
 # [level 2] 줄 서는 방법 - 12936 
 
-[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12936) 
+[문제 링크](https://school.programmers.co.kr/learn/courses/30/lessons/12936#qna) 
 
 ### 성능 요약
 
-메모리: 0.0 MB, 시간: 0.00 ms
+메모리: 52 MB, 시간: 0.07 ms
 
 ### 구분
 
-코딩테스트 연습 > 연습문제
+ > 
 
 ### 채점결과
 
@@ -16,7 +16,7 @@
 
 ### 제출 일자
 
-2024년 06월 01일 22:14:08
+2024년 11월 12일 20:07:11
 
 ### 문제 설명
 
