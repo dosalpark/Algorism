@@ -10,15 +10,15 @@ public class Main {
         int N = Integer.parseInt(br.readLine()) -1;
         StringTokenizer st1 = new StringTokenizer(br.readLine());
         StringTokenizer st2 = new StringTokenizer(br.readLine());
-        int[] distance = new int[N];
-        int[] price = new int[N];
+        long[] distance = new long[N];
+        long[] price = new long[N];
         for (int i = 0; i < N; i++) {
-            distance[i] = Integer.parseInt(st1.nextToken());
-            price[i] = Integer.parseInt(st2.nextToken());
+            distance[i] = Long.parseLong(st1.nextToken());
+            price[i] = Long.parseLong(st2.nextToken());
         }
-        int result = 0;
+        long result = 0;
 
-        int minPrice = Integer.MAX_VALUE;
+        long minPrice = Long.MAX_VALUE;
         for (int i = 0; i < N; i++) {
             minPrice = Math.min(minPrice,price[i]);
             result += minPrice*distance[i];
