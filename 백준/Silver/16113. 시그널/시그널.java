@@ -1,106 +1,81 @@
-import java.io.*;
-import java.util.ArrayList;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 public class Main {
 
-    static char [][] map;
+    static int N;
+    static BufferedReader br;
+    static BufferedWriter bw;
+    static char[][] pan;
+    static int index;
+    static int line;
+    static StringBuilder sb;
+    static String[] numbers;
 
-    public static void main(String[] args) throws NumberFormatException, IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int leng = Integer.parseInt(br.readLine());
+    public static void main(String[] args) throws IOException {
+        br = new BufferedReader(new InputStreamReader(System.in));
+        bw = new BufferedWriter(new OutputStreamWriter(System.out));
+        N = Integer.parseInt(br.readLine());
+        line = N / 5;
+        pan = new char[5][line];
+        numberSetting();
 
-        String str = br.readLine();
+        String signal = br.readLine();
+        index = 0;
+        for (int i = 0; i < N; i += line) {
+            pan[index++] = signal.substring(i, i + line).toCharArray();
+        }
 
-        map = new char[5][leng/5];
-
-        // 5등분해서 배열에 넣는다.
-        for(int i = 0; i<5; i++){
-            map[i] = str.substring(i*leng/5,leng/5*(i+1)).toCharArray();
+        index = 0;
+        while (index < line) {
+            if (pan[0][index] == '.') {
+                index++;
+                continue;
             }
-
-        ArrayList<Integer> list = new ArrayList<>();
-
-        // 맨 윗줄 만 검사한다.
-
-        for(int i = 0; i<leng/5; i++){
-            //#이면 검사한다.
-            if(map[0][i] == '#'){
-
-                if(i+2 <= leng/5){ //범위 안에 있으면서, ###일 때
-                    if(map[0][i+1] == '#' && map[0][i+2] == '#'){
-
-                        list.add(choice(i)); //###인 경우(2,3,5,6,7,8,9)중 찾아서 저장한다.
-
-                        i = i+3; //3칸을 먹기 때문에 i=i+3
-
-                        if(i >= leng/5) break; //i+3이 범위를 벗어나면 다음 for문에서 에러가 나기때문에, 종료구문을 쓴다.
-
-                        continue; //아래 (1,4)구문에 들어가면 안되므로, continue구문을 쓴다.
+            if (index + 2 < line && pan[0][index + 1] == '#' && pan[0][index + 2] == '#') {
+                sb = new StringBuilder();
+                for (int i = 0; i < 5; i++) {
+                    for (int j = index; j < index + 3; j++) {
+                        sb.append(pan[i][j]);
                     }
                 }
-				/*
-
-				###이 아닌 경우, 즉 1(#)이거나 4(#.#)일 때
-				1은 (3,i)가 '#'이지만, 4는 '.'이다.
-
-				   .#.   .#.#. <-- 이부분의 앞은 같으므로 확인하지 않는다.
-				   .#.   .#.#.
-				   .#.   .###.
-				   .#.   ...#. <-- 이 부분이 ('#' or '.' 인지 확인)
-				   .#.   ...#.  <-- 이 부분을 확인해도 무방.
-
-				*/
-                if(map[3][i] == '#') list.add(1); //(3,i)가 '#'이면 1을
-                else{ //그렇지 않으면 4를 추가한다. 4역시 3칸을 차지하기 때문에, i=i+3를 꼭 해준다.
-                    list.add(4);
-                    i = i+3;
-                    if(i >= leng/5) break; //i+3의 결과가 범위를 벗어나면 에러가 나기 때문에, 종료구문을 써준다.
+                for (int i = 0; i < numbers.length; i++) {
+                    if (i == 1 || i == 4) {
+                        continue;
+                    }
+                    if (numbers[i].equals(sb.toString())) {
+                        bw.write(String.valueOf(i));
+                        break;
+                    }
                 }
-
+                index += 3;
+                continue;
             }
-
+            if (pan[3][index] == '#') {
+                bw.write("1");
+                index++;
+            } else {
+                bw.write("4");
+                index += 3;
+            }
         }
 
-        for(int n : list){
-            System.out.print(n);
-        }
-
+        bw.flush();
+        bw.close();
     }
 
-    //###인 경우, (2,3,5,6,7,8,9)중 찾는 함수.
-    private static int choice(int x){
-
-        StringBuffer sb = new StringBuffer();
-        //한 줄의 String으로 만든다.
-        for(int i = 0; i<5; i++){
-            for(int j = 0; j<3; j++){
-                sb.append(map[i][j+x]);
-            }
-        }
-
-        return check(sb.toString());
-    }
-
-    private static int check(String sb){
-
-        int result = 10;
-        String [] num = new String[10];
-
-        num[0] = "####.##.##.####";
-        num[2] = "###..#####..###";
-        num[3] = "###..####..####";
-        num[5] = "####..###..####";
-        num[6] = "####..####.####";
-        num[7] = "###..#..#..#..#";
-        num[8] = "####.#####.####";
-        num[9] = "####.####..####";
-
-        for(int i = 0; i<num.length; i++){
-            if(sb.equals(num[i])){
-                result = i;
-                break;
-            }
-        }
-        return result;
+    private static void numberSetting() {
+        numbers = new String[10];
+        numbers[0] = "####.##.##.####";
+        numbers[2] = "###..#####..###";
+        numbers[3] = "###..####..####";
+        numbers[5] = "####..###..####";
+        numbers[6] = "####..####.####";
+        numbers[7] = "###..#..#..#..#";
+        numbers[8] = "####.#####.####";
+        numbers[9] = "####.####..####";
     }
 }
